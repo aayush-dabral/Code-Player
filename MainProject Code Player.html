@@ -1,0 +1,185 @@
+<html>
+
+	<head>
+		
+		<title>Codeplayer</title>
+
+        <!-- <script type="text/javascript" src="jquery.min.js"></script>
+
+        <script src="jquery-ui/jquery-ui.js"></script>
+
+        <link href="jquery-ui/jquery-ui.css" rel="stylesheet">   -->
+
+        <!-- use the above code only if jquery is locally installed on the device. If not, use the api given below -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        
+        <style>
+
+            body {
+                background-color: ;
+            }
+
+            button {
+                width: 100px;
+                background-color: grey;
+                font-size: 15px;
+                color: honeydew;                
+                border: 1.5px solid black;
+            }
+
+            #ok{
+                float: left;
+                font-size: 28px;
+                left: 14px;
+                color: rgb(6, 6, 109);
+            }
+
+            #top {
+                background-color: lightskyblue;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            #in {
+                width: fit-content;
+                position: fixed;
+                left: 50%;
+                top: 17px;
+                margin-left: -216;
+                padding: 0%;
+            }
+
+            .float {
+                float: left;
+                height: 90%;
+                width: 25%;
+            }
+
+            .text{
+                resize: none;
+                height: 650px;
+                width: 100%;
+            }
+        </style>
+		
+	</head>
+	
+	<body>
+
+        <div id="top">
+
+            <span id="ok"><b>Codeplayer</b></span>
+
+            <div id="in">
+
+                <button id="htmlTog" class="so"><b>HTML</b></button>
+
+                <button id="cssTog" class="so"><b>CSS</b></button>
+
+                <button id="scriptTog" class="so"><b>SCRIPT</b></button>
+
+                <button id="outputTog" class="so"><b>OUTPUT</b></button>
+
+            </div>
+
+        </div>
+
+        <div id="bottom">
+
+            <div id="html" class="float" >
+
+                <textarea id="htmlText" class="text"><p id="paragraph">Hello World!</p>
+                </textarea>
+            </div>
+
+            <div id="css" class="float">
+
+                <textarea id="cssText" class="text">p { color: green; }
+                </textarea>
+            </div>
+
+            <div id="script" class="float">
+
+                <textarea id="scriptText" class="text">document.getElementById("paragraph").innerHTML = "Hello Rob!";
+                </textarea>
+            </div>
+
+            <div id="output" class="float">
+
+                <iframe src="about:blank" class="text" id="outputArea" height="647px">
+
+                </iframe>
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+
+            function getOut() {
+                $("iframe").contents().find("html").html("<html><head><style>" + $("#cssText").val() +
+                "</style></head><body>" + $("#htmlText").val() + "</body></html>")
+            
+                document.getElementById("outputArea").contentWindow.eval($("#scriptText").val());
+            }
+
+            getOut();
+
+            var active = 4;
+
+            var x1,x2,x3,x4;
+
+            $("#htmlTog").click(function() {
+                $("#html").toggle(function () {
+                    
+                    update("#html");
+                });
+            });
+            $("#cssTog").click(function() {
+                $("#css").toggle(function () {
+                    
+                    update("#css");
+
+                });
+            });
+            $("#scriptTog").click(function() {
+                $("#script").toggle(function () {
+                    
+                    update("#script");
+                });
+            });
+            $("#outputTog").click(function() {
+                $("#output").toggle(function () {
+                    
+                   update("#output");
+                });
+            });
+
+            function update(x) {
+                if ($(x).is(":visible")) {
+                    active++;
+                }
+                else {
+                    active--;
+                }
+
+                $(".float").width((100/active) + '%')
+
+            }
+
+            $(".text").on('change keyup paste', function() {
+    
+                getOut();
+     
+            });
+
+            /* $(".text").keypress(function(element){
+                getOut();
+            })
+            */
+            
+		</script>
+
+	</body>
+
+</html>
